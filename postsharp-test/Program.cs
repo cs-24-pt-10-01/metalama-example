@@ -1,5 +1,4 @@
 ﻿using Metalama.Framework.Aspects;
-using Metalama.Framework.Code;
 using Metalama.Framework.Fabrics;
 
 internal class Fabric : ProjectFabric
