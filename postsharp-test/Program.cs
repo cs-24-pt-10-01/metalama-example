@@ -1,41 +1,26 @@
-﻿using PostSharp;
-using PostSharp.Aspects;
-using PostSharp.Serialization;
+﻿using Metalama.Framework.Aspects;
 
-[assembly: LoggingAspect(AttributeTargetTypes = "HelloWorld.*")]
-[PSerializable]
-public class LoggingAspect : OnMethodBoundaryAspect
+//[assembly: LoggingAspect(AttributeTargetTypes = "HelloWorld.*")]
+public class LogAttribute : OverrideMethodAspect
 {
-
-    public override void OnEntry(MethodExecutionArgs args)
+    public override dynamic? OverrideMethod()
     {
-        Console.WriteLine("The {0} method has been entered.", args.Method.Name);
-    }
+        Console.WriteLine($"{meta.Target.Method.Name}: start");
+        var result = meta.Proceed();
+        Console.WriteLine($"{meta.Target.Method.Name}: returning {result}.");
 
-    public override void OnSuccess(MethodExecutionArgs args)
-    {
-        Console.WriteLine("The {0} method executed successfully.", args.Method.Name);
+        return result;
     }
-
-    public override void OnExit(MethodExecutionArgs args)
-    {
-        Console.WriteLine("The {0} method has exited.", args.Method.Name);
-    }
-
-    public override void OnException(MethodExecutionArgs args)
-    {
-        Console.WriteLine("An exception was thrown in {0}.", args.Method.Name);
-    }
-
 }
 
 // https://doc.postsharp.net/il/custompatterns/aspects/applying/attribute-multicasting#all-members
+
 
 namespace HelloWorld
 {
     static class Program
     {
-
+        [LogAttribute]
         static void Main()
         {
             Console.WriteLine("Hello, world.");
@@ -43,6 +28,7 @@ namespace HelloWorld
             Testy();
         }
 
+        [LogAttribute]
         static void Testy()
         {
             Console.WriteLine("Inside Testy");
