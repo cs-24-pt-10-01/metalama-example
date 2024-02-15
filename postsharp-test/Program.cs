@@ -27,7 +27,6 @@ public class LogAttribute : OverrideMethodAspect
 
 // https://doc.postsharp.net/il/custompatterns/aspects/applying/attribute-multicasting#all-members
 
-
 namespace HelloWorld
 {
     static class Program
