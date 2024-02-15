@@ -2,6 +2,7 @@
 using PostSharp.Aspects;
 using PostSharp.Serialization;
 
+[assembly: LoggingAspect(AttributeTargetTypes = "HelloWorld.*")]
 [PSerializable]
 public class LoggingAspect : OnMethodBoundaryAspect
 {
@@ -28,11 +29,23 @@ public class LoggingAspect : OnMethodBoundaryAspect
 
 }
 
-static class Program
+// https://doc.postsharp.net/il/custompatterns/aspects/applying/attribute-multicasting#all-members
+
+namespace HelloWorld
 {
-    [LoggingAspect]
-    static void Main()
+    static class Program
     {
-        Console.WriteLine("Hello, world.");
+
+        static void Main()
+        {
+            Console.WriteLine("Hello, world.");
+
+            Testy();
+        }
+
+        static void Testy()
+        {
+            Console.WriteLine("Inside Testy");
+        }
     }
 }
