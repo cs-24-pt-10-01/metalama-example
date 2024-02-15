@@ -7,7 +7,8 @@ internal class Fabric : ProjectFabric
     public override void AmendProject(IProjectAmender amender) =>
         amender.Outbound
             .SelectMany(compilation => compilation.AllTypes)
-            .SelectMany(type => type.Methods)
+            .SelectMany(type => type.AllMethods)
+            .Where(method => method.BelongsToCurrentProject)
             .AddAspectIfEligible<LogAttribute>();
 }
 
