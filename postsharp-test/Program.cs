@@ -11,7 +11,6 @@ internal class Fabric : ProjectFabric
             .AddAspectIfEligible<LogAttribute>();
 }
 
-//[assembly: LoggingAspect(AttributeTargetTypes = "HelloWorld.*")]
 public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic? OverrideMethod()
@@ -30,7 +29,6 @@ namespace HelloWorld
 {
     static class Program
     {
-        [LogAttribute]
         static void Main()
         {
             Console.WriteLine("Hello, world.");
@@ -41,6 +39,15 @@ namespace HelloWorld
         static void Testy()
         {
             Console.WriteLine("Inside Testy");
+
+            // Test with bitconverter
+            byte[] bytes =
+            {
+                12,42,52,52
+            };
+            var x = BitConverter.ToInt32(bytes, 0);
+
+            Console.WriteLine($"{x}");
         }
     }
 }
