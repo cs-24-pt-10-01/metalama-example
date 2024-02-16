@@ -1,1 +1,1 @@
-# postsharp-test
+# metalama-example
